@@ -38,15 +38,15 @@ if st.button("Predict"):
     except Exception as e:
         st.error(f"Error during encoding: {e}")
 
-    # ตรวจสอบคอลัมน์
-    expected_columns = ['island', 'culmen_length_mm', 'culmen_depth_mm', 'flipper_length_mm', 'body_mass_g', 'sex']
-    x_new = x_new.reindex(columns=expected_columns)
-
-    # ทำนายผล
+    # ตรวจสอบค่าว่าไม่มี NaN และแปลงคอลัมน์ให้เป็นตัวเลข
+x_new = x_new.apply(pd.to_numeric, errors='coerce')
+if x_new.isnull().values.any():
+    st.error("There is a NaN value in the input data. Please check the input values.")
+else:
+    # ทำนายผลลัพธ์
     try:
         y_pred_new = model_log.predict(x_new)
         result = species_encoder.inverse_transform(y_pred_new)
         st.success(f'Predicted Species: {result[0]}')
     except Exception as e:
         st.error(f"Error during prediction: {e}")
-
