@@ -37,7 +37,6 @@ x_new['sex'] = sex_encoder.transform(x_new['sex'])
 # Prediction using the loaded model
 if st.button('Predict'):
     prediction = model_log.predict(x_new)
-    predicted_species = species_encoder.inverse_transform(prediction)
 
-    st.subheader(f'Predicted Penguin Species: {predicted_species[0]}')
+    st.subheader(f'Predicted Penguin Species: {prediction}')
 
