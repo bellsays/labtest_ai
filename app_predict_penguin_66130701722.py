@@ -57,5 +57,5 @@ else:
         y_pred_new = model_log.predict(x_new)
         result = species_encoder.inverse_transform(y_pred_new)
         st.success(f'Predicted Species: {result[0]}')
-    except Exce
+    except Exce:
 
